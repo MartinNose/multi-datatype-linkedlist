@@ -32,27 +32,24 @@ public:
     template <typename T>
     node(const T& _value): pdata(new data<T>(_value)){};
 
+    //返回当前节点数据
     template <typename T>
     T& getData();
 
+    //设置节点值
     template <typename T>
     void setData(const T& _value) {pdata = data<T>(_value);}
 
+    //返回下个节点地址
     node* next() const {return nextNode;}
     void setNext(node *_nextNode) {nextNode = _nextNode;}
 
-    template <typename T>
-    void print();
-
+    //返回当前接待类型
     enum nodeType getType() const {return type;}
     void setType(nodeType _type) {type = _type;}
 };
 
-template <typename T>
-void node::print() {
-    cout<<getData<T>();
-}
-
+//模版类实现节点值获取。
 template <typename T>
 T& node::getData() {
     auto pderived = dynamic_cast<data<T>*>(pdata);

@@ -61,19 +61,22 @@ void list::Merge(list &l) {
     tail->setNext(l.Head()->next());
     tail = l.Tail();
 }
+
+void list::Destroy() {
+    while (head->next() != nullptr) {
+        node *temp = head->next();
+        head->setNext(temp->next());
+        delete temp;
+    }
+}
+
 void list::print() {
     node *p = head->next();
     while (p != nullptr) {
-        switch (p->getType()) {
-            case INT:
-                p->print<int>();
-                break;
-            case STRING:
-                p->print<string>();
-                break;
-            case DOUBLE:
-                p->print<double>();
-                break;
+        switch(p->getType()) {
+            case INT:cout<<p->getData<int>();break;
+            case STRING:cout<<p->getData<string>();break;
+            case DOUBLE:cout<<p->getData<double>();break;
         }
         if (p == tail) cout<<"\n";
         else cout<<" --> ";
