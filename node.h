@@ -21,36 +21,22 @@ public:
     ~data() {}
 };
 
-//定义元素类。通过一个基类指针储存不同类型的数据。
-class element {
-    baseData* pdata;
-public:
-    element():pdata(nullptr) {}
-
-    template <typename T>
-    element(const T& _value):pdata(new data<T>(_value)) {}
-
-    ~element() {delete pdata;}
-    template <typename T>
-    T& value();
-};
-
 //定义节点类，包含一个数据的类型、元素、和一个指向下个地址的node类型指针
 class node {
     enum nodeType type;
-    element ele;
+    baseData *pdata;
     node* nextNode;
 public:
-    node():nextNode(nullptr),type(INT),ele(0) {} 
+    node():nextNode(nullptr),type(INT),pdata(nullptr) {} 
     //实现一个模版类构造函数
     template <typename T>
-    node(const T& _ele): ele(_ele){};
+    node(const T& _value): pdata(new data<T>(_value)){};
 
     template <typename T>
-    T& getData() {return ele.value<T>();}
+    T& getData();
 
     template <typename T>
-    void setData(const T& _value) {ele = element(_value);}
+    void setData(const T& _value) {pdata = data<T>(_value);}
 
     node* next() const {return nextNode;}
     void setNext(node *_nextNode) {nextNode = _nextNode;}
@@ -64,11 +50,11 @@ public:
 
 template <typename T>
 void node::print() {
-    cout<<ele.value<T>();
+    cout<<getData<T>();
 }
 
 template <typename T>
-T& element::value() {
+T& node::getData() {
     auto pderived = dynamic_cast<data<T>*>(pdata);
     if(nullptr == pderived){
         throw std::invalid_argument("The type to dynamic_cast is wrong");
