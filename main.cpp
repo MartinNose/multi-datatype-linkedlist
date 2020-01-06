@@ -2,12 +2,14 @@
 #include "list.h"
 using namespace std;
 
-//测试用程序
 inline bool isEqual3(int c) {
     return c == 3;
 }
 
-//测试用程序,生成一个用于测试Merge接口的异质链表
+inline void line() {
+    cout<<"-----------------------------------------------------------------------------------------------------------"<<endl;
+}
+
 void ConstructTestList(list& M){
     M.Insert((string)"MListMember1", STRING);
     M.Insert(2,INT);
@@ -15,9 +17,9 @@ void ConstructTestList(list& M){
     M.Insert(3.02, DOUBLE);
     M.Insert((string)"MListMember4", STRING);
     cout<<"List for testing is constructed as follow"<<endl;
-    cout<<"-----------------------------------------------------------------------------------------------------------"<<endl;
+    line();
     M.print();
-    cout<<"-----------------------------------------------------------------------------------------------------------"<<endl;
+    line();
 }
 
 void ConstructMainList(list& L) {
@@ -33,11 +35,6 @@ void ConstructMainList(list& L) {
     cout<<"1 --> 2 --> 3 --> 3 --> 2.9 --> 3 --> Test!@#String123 --> HelloWorld"<<endl;
 }
 
-inline void line() {
-    cout<<"-----------------------------------------------------------------------------------------------------------"<<endl;
-}
-
-//测试用程序主函数
 int main() {
     line();
     cout<<"Linked List Test\n";
@@ -47,8 +44,6 @@ int main() {
     ConstructMainList(L);
     line();
 
-
-//测试各个接口功能
     cout<<"list::print() output:"<<endl;
     L.print();
     line();
