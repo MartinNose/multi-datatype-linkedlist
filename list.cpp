@@ -38,20 +38,6 @@ void list::Reverse() {
     }
 }
 
-void list::Destroy() {
-    if (head == tail) {
-        cout<<"list is empty" <<endl;
-        return;
-    }
-
-    while(true) {
-        node *nextNode = head->next()->next();
-        delete head->next();
-        if (nextNode == nullptr) break;
-        head->setNext(nextNode);
-    }
-}
-
 void list::Merge(list &l) {
     if (head==tail) {
         head = l.Head();
@@ -63,6 +49,11 @@ void list::Merge(list &l) {
 }
 
 void list::Destroy() {
+    if (head == tail) {
+        cout<<"list is empty" <<endl;
+        return;
+    }
+    
     while (head->next() != nullptr) {
         node *temp = head->next();
         head->setNext(temp->next());
@@ -73,11 +64,7 @@ void list::Destroy() {
 void list::print() {
     node *p = head->next();
     while (p != nullptr) {
-        switch(p->getType()) {
-            case INT:cout<<p->getData<int>();break;
-            case STRING:cout<<p->getData<string>();break;
-            case DOUBLE:cout<<p->getData<double>();break;
-        }
+        p->printNode();
         if (p == tail) cout<<"\n";
         else cout<<" --> ";
         p = p->next();
